@@ -335,27 +335,36 @@
 </footer>
 
 <script type="module">
-import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
-import { getAuth, onAuthStateChanged, signInWithEmailAndPassword, signOut, createUserWithEmailAndPassword }
-  from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
-import { getFirestore, collection, doc, getDoc, getDocs, setDoc, deleteDoc, query, where, limit, onSnapshot, writeBatch }
-  from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
+// Import the functions you need from the SDKs you need
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+import { getAuth, onAuthStateChanged, signInWithEmailAndPassword,
+         createUserWithEmailAndPassword, signOut } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
+import { getFirestore, collection, doc, getDoc, getDocs, setDoc, deleteDoc,
+         onSnapshot, query, where, limit, writeBatch } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+// TODO: Add SDKs for Firebase products that you want to use
+// https://firebase.google.com/docs/web/setup#available-libraries
 
-/* ================= FIREBASE (sem Analytics: dados de saúde, sem consentimento) ================= */
+// Your web app's Firebase configuration
+// For Firebase JS SDK v7.20.0 and later, measurementId is optional
 const firebaseConfig = {
-  apiKey: "AIzaSyA_dIav9z30uw1oigo_5XoQL2TH2CiWdMA",   // pública por design; proteja com restrição de domínio + regras
-  authDomain: "omni-ef6b1.firebaseapp.com",
-  projectId: "omni-ef6b1",
-  storageBucket: "omni-ef6b1.firebasestorage.app",
-  messagingSenderId: "6821845887",
-  appId: "1:6821845887:web:ca11e04648a4dfb349184a"
+  apiKey: "AIzaSyCTZ6I_22BHtH1xyHQ4O0vXNae9lCxZL8g",
+  authDomain: "omnilab-teste.firebaseapp.com",
+  databaseURL: "https://omnilab-teste-default-rtdb.firebaseio.com",
+  projectId: "omnilab-teste",
+  storageBucket: "omnilab-teste.firebasestorage.app",
+  messagingSenderId: "331289121618",
+  appId: "1:331289121618:web:476106a488ad89edf6208b",
+  measurementId: "G-S81VBL8R08"
 };
+
+// Initialize Firebase
 const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
 const db = getFirestore(app);
-// App secundário: cria contas sem deslogar quem está operando o sistema
-const secAuth = getAuth(initializeApp(firebaseConfig, "sec"));
 
+// secondary app, used to create accounts without logging out the current user
+const secApp = initializeApp(firebaseConfig, "secundario");
+const secAuth = getAuth(secApp);
 /* ================= CONFIG ================= */
 const CONFIG = {
   inicio: {
