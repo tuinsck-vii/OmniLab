@@ -480,7 +480,11 @@ onAuthStateChanged(auth, async u => {
     perfil = { uid: u.uid, ...s.data() };
     tenantId = perfil.tenantId;
     if(perfil.role === "paciente") await entrarPortal(); else entrarSistema();
-  } catch(e){ console.error(e); await signOut(auth); }
+  } } catch(e){
+    console.error(e);
+    $("login-erro").textContent = "Erro: " + (e.code || e.message);
+    await signOut(auth);
+  }
 });
 
 function entrarSistema(){
