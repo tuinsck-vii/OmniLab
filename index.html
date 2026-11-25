@@ -279,7 +279,7 @@
     <p class="info-auxiliar">O paciente já tem cadastro no sistema?</p>
     <div class="modal-botoes" style="flex-direction:column;">
       <button class="acao" data-act="escolha-cadastrado">📋 Paciente já cadastrado</button>
-      <button class="secundario" data-act="escolha-novo">🆕 Novo paciente</button>
+      <button class="secundario" data-act="escolha-novo">🆕 Novo paciente</button>  
     </div>
   </div>
 </div>
@@ -480,7 +480,7 @@ onAuthStateChanged(auth, async u => {
     perfil = { uid: u.uid, ...s.data() };
     tenantId = perfil.tenantId;
     if(perfil.role === "paciente") await entrarPortal(); else entrarSistema();
-  } } catch(e){
+  } catch(e){
     console.error(e);
     $("login-erro").textContent = "Erro: " + (e.code || e.message);
     await signOut(auth);
