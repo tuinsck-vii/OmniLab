@@ -343,16 +343,14 @@ import { initializeFirestore, getDocFromServer, setLogLevel, collection, doc, ge
          onSnapshot, query, where, limit, writeBatch } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
 // Your web app's Firebase configuration
 const firebaseConfig = {
-  apiKey: "AIzaSyCTZ6I_22BHtH1xyHQ4O0vXNae9lCxZL8g",
-  authDomain: "omnilab-teste.firebaseapp.com",
-  databaseURL: "https://omnilab-teste-default-rtdb.firebaseio.com",
-  projectId: "omnilab-teste",
-  storageBucket: "omnilab-teste.firebasestorage.app",
-  messagingSenderId: "331289121618",
-  appId: "1:331289121618:web:476106a488ad89edf6208b",
-  measurementId: "G-S81VBL8R08"
+  apiKey: "AIzaSyDFbnNTYC_PlwA8Nc6nUn1EFApFiKJcENU",
+  authDomain: "omnilab-d5e9b.firebaseapp.com",
+  projectId: "omnilab-d5e9b",
+  storageBucket: "omnilab-d5e9b.firebasestorage.app",
+  messagingSenderId: "979819659302",
+  appId: "1:979819659302:web:ce82b0af3768e34310a6e7",
+  measurementId: "G-0RYS6SW4K7"
 };
-
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
@@ -360,7 +358,7 @@ const auth = getAuth(app);
 const db = initializeFirestore(app, {
   experimentalForceLongPolling: true,
   useFetchStreams: false
-}, "default");
+});
 
 // secondary app, used to create accounts without logging out the current user
 const secApp = initializeApp(firebaseConfig, "secundario");
