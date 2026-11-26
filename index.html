@@ -339,9 +339,8 @@
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
 import { getAuth, onAuthStateChanged, signInWithEmailAndPassword,
          createUserWithEmailAndPassword, signOut } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
-import { initializeFirestore, collection, doc, getDoc, getDocs, setDoc, deleteDoc,
+import { initializeFirestore, getDocFromServer, setLogLevel, collection, doc, getDoc, getDocs, setDoc, deleteDoc,
          onSnapshot, query, where, limit, writeBatch } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
-
 // Your web app's Firebase configuration
 const firebaseConfig = {
   apiKey: "AIzaSyCTZ6I_22BHtH1xyHQ4O0vXNae9lCxZL8g",
@@ -357,8 +356,10 @@ const firebaseConfig = {
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
+  setLogLevel("debug");
 const db = initializeFirestore(app, {
-  experimentalForceLongPolling: true
+  experimentalForceLongPolling: true,
+  useFetchStreams: false
 });
 
 // secondary app, used to create accounts without logging out the current user
@@ -475,7 +476,7 @@ onAuthStateChanged(auth, async u => {
   cache = { pac: [], vis: [], cat: [] };
   if(!u){ perfil = null; tenantId = null; mostrar("login"); return; }
   try {
-    const s = await getDoc(doc(db, "users", u.uid));
+    const s = await getDocFromServer(doc(db, "users", u.uid));
     if(!s.exists()){ await signOut(auth); $("login-erro").textContent = "Conta sem permissão de acesso."; return; }
     perfil = { uid: u.uid, ...s.data() };
     tenantId = perfil.tenantId;
