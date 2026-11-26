@@ -360,7 +360,7 @@ const auth = getAuth(app);
 const db = initializeFirestore(app, {
   experimentalForceLongPolling: true,
   useFetchStreams: false
-});
+}, "default");
 
 // secondary app, used to create accounts without logging out the current user
 const secApp = initializeApp(firebaseConfig, "secundario");
