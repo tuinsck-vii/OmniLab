@@ -358,9 +358,12 @@ const firebaseConfig = {
 };
 
 // Initialize Firebase
-const app = initializeApp(firebaseConfig);
+import { initializeFirestore, collection, doc, getDoc, getDocs, setDoc, deleteDoc,
+         onSnapshot, query, where, limit, writeBatch } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
 const auth = getAuth(app);
-const db = getFirestore(app);
+const db = initializeFirestore(app, {
+  experimentalForceLongPolling: true
+});
 
 // secondary app, used to create accounts without logging out the current user
 const secApp = initializeApp(firebaseConfig, "secundario");
